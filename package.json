@@ -1,5 +1,6 @@
 {
   "name": "kitchen-inventory-management",
+  "author": "Gian Diego Crisanto",
   "version": "0.1.0",
   "private": true,
   "scripts": {

@@ -1,16 +1,25 @@
 'use server';
 import { google } from 'googleapis';
+import { config } from '@/config/config';
 
-export async function getSheetData() {
+export const getSheetData = async () => {
+	const {
+		type,
+		project_id,
+		private_key_id,
+		private_key,
+		client_email,
+		universe_domain,
+	} = config;
 	const glAuth = await google.auth.getClient({
-		projectId: 'YOUR_PROJECT_ID',
+		projectId: project_id,
 		credentials: {
-			type: 'service_account',
-			project_id: 'YOUR_PROJECT_ID',
-			private_key_id: 'YOUR_PRIVATE_KEY_ID',
-			private_key: 'YOUR_PRIVATE_KEY',
-			client_email: 'YOUR_CLIENT_EMAIL',
-			universe_domain: 'googleapis.com',
+			type,
+			project_id,
+			private_key_id,
+			private_key,
+			client_email,
+			universe_domain,
 		},
 		scopes: ['https://www.googleapis.com/auth/spreadsheets'],
 	});
@@ -18,9 +27,9 @@ export async function getSheetData() {
 	const glSheets = google.sheets({ version: 'v4', auth: glAuth });
 
 	const data = await glSheets.spreadsheets.values.get({
-		spreadsheetId: 'SHEET_ID',
-		range: 'RANGE',
+		spreadsheetId: '1E3WjYi3YY3AzLRMwVsxD7z3_mi9U8T2b8bQpV8WKGHY',
+		range: 'A1',
 	});
 
 	return { data: data.data.values };
-}
+};
